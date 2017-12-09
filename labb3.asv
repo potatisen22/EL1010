@@ -1,0 +1,17 @@
+%% 3.1
+clc;
+clear all;
+close all;
+[J,umax] = lab3robot(960703);
+s = tf('s')
+kt=38;
+Lm=2;
+km=0.5;
+n=1/20;
+Rm=21;
+b=1;
+K = kt/(s*Lm+Rm)
+Go=1/(Js+b)
+H=-km
+tetha=
+lab3robot(G,960703)
