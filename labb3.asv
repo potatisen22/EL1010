@@ -11,7 +11,15 @@ n=1/20;
 Rm=21;
 b=1;
 K = kt/(s*Lm+Rm)
-Go=1/(Js+b)
-H=-km
-tetha=
+T=1/(J*s+b)
+G = (K*T*n/s)/(km*K*T+1)
 lab3robot(G,960703)
+Gc = G/(1+G);
+i = 1;
+for k = 0.1:0.1:1
+    
+    step(k*Gc)
+    hold on
+    S(i)=stepinfo(k*Gc);
+    i = i+1
+end
