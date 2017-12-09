@@ -15,19 +15,94 @@ T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
 lab3robot(G,960703)
 
-
-K = 5;
-Gc = K*G/(1+G*K);
+Gc = G/(1+G);
 %i = 1;
-step(Gc)
-S=stepinfo(Gc);
-%lab3robot(G,K,960703)
+K = 1.05;
+step(K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++*Gc)
+S=stepinfo(K*Gc);
+lab3robot(G,K,960703)
 %k = 1.05;
 %step(k*Gc)
 %S=stepinfo(k*Gc);s
 
-G0 = K * G;
-[Gm, Pm, Wbredd, Wcross] = margin(G0)
+
+
+[Gm, Pm, Wcg, Wcp] = margin(G)
 
 
 % bode(system)
