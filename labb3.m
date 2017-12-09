@@ -19,3 +19,16 @@ i = 1;
 k = 1.05;
 step(k*Gc)
 S=stepinfo(k*Gc);s
+
+
+%lab3robot(G,960703)
+
+[Gm, Pm, Wcg, Wcp] = margin(G)
+
+
+% bode(system)
+% [gf, fsa, qwe, mkg] = margin(system)
+
+% Gc = feedback(K*Flead*G*Flag,1)
+% figure(5)
+% step(Gc)
