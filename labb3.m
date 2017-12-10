@@ -25,7 +25,7 @@ S=stepinfo(Gc);
 %k = 1.05;
 %step(k*Gc)
 %S=stepinfo(k*Gc);s
-K = 5;
+K = 5.12;
 a = 0;
 i = 1;
 while a < 5
@@ -40,10 +40,26 @@ K = kvek(i-2);
 Gc = K*G/(1+G*K);
 S=stepinfo(Gc)
 G0 = K * G;
-[Gm, Pm, Wbredd, Wcross] = margin(G0)
-% bode(system)
-% [gf, fsa, qwe, mkg] = margin(system)
+%% 3.3
+clc
+close all
+bode(G)
+s = tf('s')
+[Gm, Pm, Wbredd, Wcross] = margin(G)
+beta = 0.7;
+Wcd = 0.95;
 
+Td = 1/(Wcd*sqrt(beta));
+
+Flead = K*(Td*s+1)/(beta*Td+1);
+
+%F = Flead*Flag;
+Go = Flead*G;
+Gc = Go/(1+Go);
+S33=stepinfo(Gc)
+bode(Go)
+[Gm, Pm, Wbredd, Wcross] = margin(Go)
+% [gf, fsa, qwe, mkg] = margin(system)
 % Gc = feedback(K*Flead*G*Flag,1)
 % figure(5)
 % step(Gc)
