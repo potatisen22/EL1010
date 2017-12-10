@@ -103,5 +103,5 @@ bode(k * Flead * Flag * G), grid
  step(Gc)
 S33=stepinfo(Gc)
 
-%lab3robot(G,k,Flead*Flag,[],[],[],[],[],960703)
+lab3robot(G,k,Flead*Flag,[],[],[],[],[],960703)
 lab3robot(G,960703)
