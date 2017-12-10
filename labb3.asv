@@ -92,3 +92,36 @@ bode(k * Flead * Flag * G), grid
  step(Gc)
 S33=stepinfo(Gc)
 
+%%
+%
+beta = 0.4;
+Wcd = 1.4;
+Td = 1/(Wcd*sqrt(beta));
+Ti = *10/Wcd;
+gamma = 1;
+s = i*Wcd;
+Kg = kt/(s*Lm+Rm)
+T=1/(J*s+b);
+G = (Kg*T*n/s)/(km*Kg*T+1)
+Flead = (Td*s+1)/(beta*Td*s+1);
+Flag = (Ti*s+1)/(Ti*s+gamma);
+F = Flead*Flag;
+Go = Flead*G; %G0 for Flead
+K=1/(abs(Flead)*abs(Go)) %K = 1/(10^(abs(F*G)/20));
+s = tf('s');
+Kg = kt/(s*Lm+Rm)
+T=1/(J*s+b)
+G = (Kg*T*n/s)/(km*Kg*T+1)
+Flead = K*(Td*s+1)/(beta*Td*s+1);
+Flag = (Ti*s+1)/(Ti*s+0);
+F = Flead*Flag;
+Gc = G*F/(1+G*F);
+S33=stepinfo(Gc)
+figure()
+bode(G*F), grid
+[FGm, FPm, FWbredd, FWcross] = margin(G*F);
+% [gf, fsa, qwe, mkg] = margin(system)
+% Gc = feedback(K*Flead*G*Flag,1)
+% figure(5)
+figure()
+step(Gc)
