@@ -56,41 +56,38 @@ Kg = kt/(s*Lm+Rm)
 T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
 figure()
-bode(G)
+bode(G), grid
 Gc = G/(1+G)
 S11=stepinfo(Gc)
-
 [GGm, GPm, GWbredd, GWcross] = margin(G)
-beta = 0.8;
-Wcd = GWcross*2;
-K = 1;
+beta = 0.13;
+Wcd = 1;
 Td = 1/(Wcd*sqrt(beta));
 Ti = 10/Wcd;
 gamma = 0;
 s = i*Wcd;
 Kg = kt/(s*Lm+Rm)
-T=1/(J*s+b)
+T=1/(J*s+b);
 G = (Kg*T*n/s)/(km*Kg*T+1)
-Flead = K*(Td*s+1)/(beta*Td*s+1);
+Flead = (Td*s+1)/(beta*Td*s+1);
 Flag = (Ti*s+1)/(Ti*s+gamma);
 F = Flead*Flag;
-K = 1/10^(abs(F*G)/20);
+Go = Flead*G; %G0 for Flead
+K=1/(abs(Flead)*abs(Go)) %K = 1/(10^(abs(F*G)/20));
 s = tf('s');
 Kg = kt/(s*Lm+Rm)
 T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
 Flead = K*(Td*s+1)/(beta*Td*s+1);
-Flag = (Ti*s+1)/(Ti*s+gamma);
+Flag = (Ti*s+1)/(Ti*s+0);
 F = Flead*Flag;
-Go = F*G;
-Gc = Go/(1+Go);
+Gc = G*F/(1+G*F);
 S33=stepinfo(Gc)
 figure()
-bode(Go)
-[FGm, FPm, FWbredd, FWcross] = margin(Go)
+bode(G*F), grid
+[FGm, FPm, FWbredd, FWcross] = margin(G*F);
 % [gf, fsa, qwe, mkg] = margin(system)
 % Gc = feedback(K*Flead*G*Flag,1)
 % figure(5)
 figure()
 step(Gc)
-
