@@ -40,6 +40,8 @@ K = kvek(i-2);
 Gc = K*G/(1+G*K);
 S=stepinfo(Gc)
 G0 = K * G;
+lab3robot(G,K,[],[],[],[],[],[],960703)
+
 %% 3.3
 clc
 close all
@@ -65,6 +67,14 @@ S11=stepinfo(Gc)
 [GGm, GPm, GWbredd, GWcross] = margin(G)
 %% kims test
 close all
+[J,umax] = lab3robot(960703);
+s = tf('s')
+kt=38;
+Lm=2;
+km=0.5;
+n=1/20;
+Rm=21;
+b=1;
 wcd = 4*0.0505;
 s = i*wcd;
 Kg = kt/(s*Lm+Rm)
@@ -72,18 +82,19 @@ T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
 %k = 1/abs(G)
 
-b = 0.3;
-Td = 5.92
-Flead = (Td*s+1)/(b*Td*s+1);
+beta = 0.3;
+Td = 1/(wcd*sqrt(beta))
+Flead = (Td*s+1)/(beta*Td*s+1);
 k = 1/abs(Flead*G)
 gamma = 0.6;
 Ti = 10/wcd+10;
 s = tf('s')
-Flead = (Td*s+1)/(b*Td*s+1);
+Flead = (Td*s+1)/(beta*Td*s+1);
 Flag = (Ti*s+1)/(Ti*s+gamma);
 Kg = kt/(s*Lm+Rm)
 T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
+
 
 Gc= feedback(k*Flead*Flag*G/(1+k *Flead*Flag*G),1)
 figure(66)
@@ -92,3 +103,5 @@ bode(k * Flead * Flag * G), grid
  step(Gc)
 S33=stepinfo(Gc)
 
+%lab3robot(G,k,Flead*Flag,[],[],[],[],[],960703)
+lab3robot(G,960703)
