@@ -25,11 +25,22 @@ S=stepinfo(Gc);
 %k = 1.05;
 %step(k*Gc)
 %S=stepinfo(k*Gc);s
-
+K = 5;
+a = 0;
+i = 1;
+while a < 5
+    Gc = K*G/(1+G*K);
+    S=stepinfo(Gc);
+    a = extractfield(S,'Overshoot');
+    kvek(i)=K;
+    K = K+0.0001;
+    i=i+1;
+end
+K = kvek(i-2);
+Gc = K*G/(1+G*K);
+S=stepinfo(Gc)
 G0 = K * G;
 [Gm, Pm, Wbredd, Wcross] = margin(G0)
-
-
 % bode(system)
 % [gf, fsa, qwe, mkg] = margin(system)
 

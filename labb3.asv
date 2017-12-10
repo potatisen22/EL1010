@@ -15,94 +15,23 @@ T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
 lab3robot(G,960703)
 
-Gc = G/(1+G);
+
+K = 5;
+Gc = K*G/(1+G*K);
 %i = 1;
-K = 1.05;
-step(K
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-+*Gc)
-S=stepinfo(K*Gc);
-lab3robot(G,K,960703)
+step(Gc)
+S=stepinfo(Gc);
+%lab3robot(G,K,960703)
 %k = 1.05;
 %step(k*Gc)
 %S=stepinfo(k*Gc);s
+k = 5
+while k a
+a = 0
 
-
-
-[Gm, Pm, Wcg, Wcp] = margin(G)
+a = extractfield(S,'Overshoot')
+G0 = K * G;
+[Gm, Pm, Wbredd, Wcross] = margin(G0)
 
 
 % bode(system)
