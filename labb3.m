@@ -27,25 +27,25 @@ S=stepinfo(Gc);
 %S=stepinfo(k*Gc);s
 K = 5.12;
 a = 0;
-i = 1;
+l = 1;
 while a < 5
     Gc = K*G/(1+G*K);
     S=stepinfo(Gc);
     a = extractfield(S,'Overshoot');
-    kvek(i)=K;
+    kvek(l)=K;
     K = K+0.0001;
-    i=i+1;
+    l=l+1;
 end
-K = kvek(i-2);
+K = kvek(l-2);
 Gc = K*G/(1+G*K);
 S=stepinfo(Gc)
 G0 = K * G;
 lab3robot(G,K,[],[],[],[],[],[],960703)
+Kp = K;
 
 %% 3.3
 clc
 close all
-clear all
 [J,umax] = lab3robot(960703);
 s = tf('s')
 %/definierar G
@@ -61,7 +61,11 @@ G = (Kg*T*n/s)/(km*Kg*T+1)
 %/
 %%Okompenserat
 figure()
+bode(Kp*G), grid
+title('bode med Kp')
+figure()
 bode(G), grid
+title('bode för G')
 Gc = G/(1+G)
 S11=stepinfo(Gc)
 [GGm, GPm, GWbredd, GWcross] = margin(G)
@@ -75,33 +79,34 @@ km=0.5;
 n=1/20;
 Rm=21;
 b=1;
-wcd = 4*0.0505;
+wcd = 4*0.222;
 s = i*wcd;
 Kg = kt/(s*Lm+Rm)
 T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
-%k = 1/abs(G)
 
-beta = 0.6
+beta = 0.17;
 Td = 1/(wcd*sqrt(beta))
 Flead = (Td*s+1)/(beta*Td*s+1);
 k = 1/abs(Flead*G)  %% övning 8?
-gamma = 0.5;
+gamma = 0.0382;
 Ti = 10/wcd+10;
 s = tf('s')
-Flead = (Td*s+1)/(beta*Td*s+1);
+Flead = k*(Td*s+1)/(beta*Td*s+1);
 Flag = (Ti*s+1)/(Ti*s+gamma);
 Kg = kt/(s*Lm+Rm)
 T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
+%rampning
 
 
-Gc= feedback(k*Flead*Flag*G/(1+k *Flead*Flag*G),1)
+Gc= feedback(Flead*Flag*G/(1+Flead*Flag*G),1)
 figure(66)
-bode(k * Flead * Flag * G), grid
+bode(Flead * Flag * G), grid
  figure(5)
  step(Gc)
 S33=stepinfo(Gc)
 
-lab3robot(G,k,Flead*Flag,[],[],[],[],[],960703)
+lab3robot(G,Kp,Flead*Flag,[],[],[],[],[],960703)
 lab3robot(G,960703)
+
