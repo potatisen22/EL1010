@@ -82,11 +82,11 @@ T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
 %k = 1/abs(G)
 
-beta = 0.3;
+beta = 0.6
 Td = 1/(wcd*sqrt(beta))
 Flead = (Td*s+1)/(beta*Td*s+1);
-k = 1/abs(Flead*G)
-gamma = 0.6;
+k = 1/abs(Flead*G)  %% övning 8?
+gamma = 0.5;
 Ti = 10/wcd+10;
 s = tf('s')
 Flead = (Td*s+1)/(beta*Td*s+1);
