@@ -97,10 +97,8 @@ Flag = (Ti*s+1)/(Ti*s+gamma);
 Kg = kt/(s*Lm+Rm)
 T=1/(J*s+b)
 G = (Kg*T*n/s)/(km*Kg*T+1)
-%rampning
 
-
-Gc= feedback(Flead*Flag*G/(1+Flead*Flag*G),1)
+Gc = Flead*Flag*G/(1+Flead*Flag*G); 
 figure(66)
 bode(Flead * Flag * G), grid
  figure(5)
@@ -109,4 +107,21 @@ S33=stepinfo(Gc)
 
 lab3robot(G,Kp,Flead*Flag,[],[],[],[],[],960703)
 lab3robot(G,960703)
-
+%% sensitivity
+S1 = 1/(1+(G*Flead*Flag))
+S2 = 1/(1+Kp*G)
+figure()
+bodemag(S1,S2), grid
+legend('LeadLag','Kp')
+%% 3.5
+clc;
+close all;
+F=Flead*Flag;
+T = G*F/(1+G*F); 
+dG1 = (s+10)/40;;
+dG2 =(s+10)/(4*(s+0.01));
+bodemag(1/T,dG1,dG2), grid
+legend('1/T','dG1','dG2')
+%% 3.6
+clc;
+close all;
