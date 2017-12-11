@@ -10,5 +10,4 @@ VI SKA HÖJA FASMARGINALEN FRÅN 32 TILL 52 GRADER samt ha Wcd = 0.79
 2. TAUD = 0.79 = Wmax = 1/(TAUD*sqrt(b))=>TAUD=1/(0.79*sqrt(0.49)) => TAUD = 1.81
 
 3. K: Wcd = 0.79 = Wc => 1 = abs(Go(i*Wcd))=k/sqrt(b)*0.34 där 0.34 = G(iW) 
-(antagligen G(iWcd)) => k = sqrt(b)/G(iWcd). högst oklart om det är G(iW)*Flead i del 3 
-eller G(iW)
+(antagligen G(iWcd)) => k = sqrt(b)/G(iWcd). Det är G(iWcd)
