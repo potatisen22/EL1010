@@ -144,9 +144,9 @@ I = eye(3);
  % det(s*I-A+B*L)
 %poler ap+-i*bp och cp samt tillverkning av Gc nedan
 s = tf('s');
-ap = 1; %reella polen vi fuckade upp polerna, så de måste anges med positiv realdel
-bp = 0; %im del av ap
-cp = 1; % reella poolen
+ap = 2; %reella polen vi fuckade upp polerna, så de måste anges med positiv realdel
+bp = 2; %im del av ap
+cp = 2; % reella poolen
 l1 =cp*(ap^2+bp^2)*J*Lm/(kt*n)
 l3 = Lm*(2*ap+cp-Rm/Lm-b/J);
 l2 = Lm*J*(ap^2+bp^2+2*ap*cp-Rm*b/(J*Lm)-b*l3/(J*Lm)-km*kt/(J*Lm))/kt;
