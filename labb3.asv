@@ -142,30 +142,30 @@ close all;
 I = eye(3);
  % L = [l1, l2, l3];
  % det(s*I-A+B*L)
-%poler ap+/-i*bp och cp samt tillverkning av Gc nedan
+%poler ap+-i*bp och cp samt tillverkning av Gc nedan
 s = tf('s');
-ap = -5; %reella polen vi fuckade upp polerna, så de måste anges med positiv realdel
-bp = 0;
-cp = -3;
-l1 =-cp*(ap^2+bp^2)*80/19;
+ap = 5; %reella polen vi fuckade upp polerna, så de måste anges med positiv realdel
+bp = 0; %im del av ap
+cp = 5; % reella poolen
+l1 =cp*(ap^2+bp^2)*J*Lm/(kt*n)
 l3 = Lm*(2*ap+cp-Rm/Lm-b/J);
-l2 = Lm*J(ap^2+bp^2+2*ap*cp-Rm*b/J*Lm-b*l3/J*Lm)/kt;
+l2 = Lm*J*(ap^2+bp^2+2*ap*cp-Rm*b/J*Lm-b*l3/J*Lm-km*kt/J*Lm)/kt;
 L = [l1, l2, l3];
+L0 = l1;
 afb = A-B*L;
-bfb = B;
+bfb = B*L0;
 D = 0; %inget beroende av U
 Gcfeedback = tf(ss(afb,bfb,C,D))  %C*(s*I-A+B*L)^-1 * B;
 stepinfo(Gcfeedback)
 step(Gcfeedback)
-lab3robot(G,Kp,Flead*Flag,A,B,C,L,1,960703)
-Gbild = G/(1+G);
-Gcl = Gcfeedback/G%(Gcfeedback/(1+Gcfeedback))*(1/Gbild)
+lab3robot(G,Kp,Flead*Flag,A,B,C,L,L0,960703)
+u = Gcfeedback/G
 close all;
 figure()
-step(Gcl)
+step(u)
 hold on
-Gcl = (Gcfeedback/(1+Gcfeedback))*(1/Gbild)
-y = step(Gcl)
-max(abs(y))
-figure()
-bode(Gcl)
+%Gcl = (Gcfeedback/(1+Gcfeedback))*(1/Gbild)
+step(u)
+hold on 
+plot(refline([0 110]),refline([0 -110]))
+%max(step(u))
