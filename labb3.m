@@ -104,6 +104,14 @@ bode(Flead * Flag * G), grid
  figure(5)
  step(Gc)
 S33=stepinfo(Gc)
+u = Gc/G
+close all;
+figure()
+step(u)
+hold on
+step(u)
+hold on 
+plot(refline([0 110]),refline([0 -110]))
 
 lab3robot(G,Kp,Flead*Flag,[],[],[],[],[],960703)
 lab3robot(G,960703)
